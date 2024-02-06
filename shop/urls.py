@@ -6,7 +6,7 @@ from django.conf import settings
 urlpatterns = [
     path('', views.homepage, name='home'),
     path('shopAll/', views.shop_all, name='shop_all'),
-    path('product/<int:pk>', views.product, name='product'),
+    path('product/<slug:slug>/', views.product, name='product'),
     path('contact/', views.contact, name='contact'),
     path('customcandles/', views.customcandles, name='custom_candles'),
     path('candlecare/', views.candlecare, name='candle_care'),

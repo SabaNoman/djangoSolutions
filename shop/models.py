@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils.text import slugify
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 import datetime
 
 
@@ -14,7 +17,8 @@ class Brand(models.Model):
     return self.name
 
 class Product(models.Model):
-  name = models.CharField(max_length=255)
+  slug = models.SlugField(max_length=255)
+  name = models.CharField(max_length=255, unique=True)
   price = models.DecimalField(default=0, decimal_places=2, max_digits=10)
   ingredients = models.CharField(max_length=100, default='Vanilla')
   description = models.CharField(max_length=250, default='', blank='True')
@@ -26,6 +30,11 @@ class Product(models.Model):
   is_featured = models.BooleanField(default=False)
   def __str__(self):
     return self.name
+
+@receiver(pre_save, sender=Product)
+def product_pre_save(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.name)
 
 class Customer(models.Model):
   firstname = models.CharField(max_length=255)
