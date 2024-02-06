@@ -47,4 +47,4 @@ def category(request, strtext):
 def brand(request, strtext):
     brand = Brand.objects.get(name=strtext)
     products = Product.objects.filter(brand=brand)
-    return render(request, 'category.html', {'products':products, 'category':category})
+    return render(request, 'category.html', {'products':products, 'brand':brand})
