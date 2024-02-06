@@ -10,5 +10,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('customcandles/', views.customcandles, name='custom_candles'),
     path('candlecare/', views.candlecare, name='candle_care'),
+    path('category/<str:strtext>', views.brand, name='brand'),
+    path('brand/<str:strtext>', views.candle, name='category'),
 ]   
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

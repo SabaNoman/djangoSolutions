@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, Category, Brand
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -33,9 +33,18 @@ def contact(request):
     return render(request, 'contact.html')
 
 def customcandles(request):
-
     return render(request, 'customcandles.html')
 
 def candlecare(request):
     product = Product.objects.all()
-    return render(request, 'candlecare.html', {'product':product})
+    return render(request, 'candlecare.html')
+
+def category(request, strtext):
+    category = Category.objects.get(name=strtext)
+    products = Product.objects.filter(category=category)
+    return render(request, 'category.html', {'products':products, 'category':category})
+
+def brand(request, strtext):
+    brand = Brand.objects.get(name=strtext)
+    products = Product.objects.filter(brand=brand)
+    return render(request, 'category.html', {'products':products, 'category':category})
