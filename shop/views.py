@@ -39,3 +39,5 @@ def customcandles(request):
 def candlecare(request):
     product = Product.objects.all()
     return render(request, 'candlecare.html', {'product':product})
+
+#comment
