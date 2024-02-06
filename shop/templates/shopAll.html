@@ -30,7 +30,7 @@
             <div class="row">
               {% for product in products %}
                 <div class="col-sm-6 col-md-3 mb-4">
-                  <a class="nodecoration" href="{% url 'product' product.id %}">
+                  <a class="nodecoration" href="{% url 'product' product.slug %}">
                     <div class="card">
                     <div class="zoom-effect">
                         <img src= '{{ product.image1.url }}' class="card-img-top" alt="Product 1">

@@ -11,8 +11,8 @@ def shop_all(request):
     products = Product.objects.all()
     return render(request, 'shopAll.html', {'products':products})
 
-def product(request, pk):
-    product = Product.objects.get(id=pk)
+def product(request, slug):
+    product = Product.objects.get(slug=slug)
     return render(request, 'product.html', {'product':product})
 
 def contact(request):
