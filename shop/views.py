@@ -36,7 +36,6 @@ def customcandles(request):
     return render(request, 'customcandles.html')
 
 def candlecare(request):
-    product = Product.objects.all()
     return render(request, 'candlecare.html')
 
 def category(request, strtext):
