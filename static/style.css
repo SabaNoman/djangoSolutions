@@ -146,3 +146,68 @@ a, a:hover, a:focus, a:active {
     padding: 10px;
     font-size: 20px;
 }
+p .small{
+    font-weight: 300;
+}
+.custom-card .card-body {
+    background-color: transparent;
+}
+
+/* product page */
+.image-container {
+    display: flex;
+    justify-content: space-evenly;
+}  
+.card-body {
+    margin: 2%;
+    text-align: center;
+}  
+.mb-3 {
+    margin: auto;
+    background-color: whitesmoke;
+}
+.text-black:hover{
+    font-weight: bolder;
+    color: black;
+}
+
+.customcandle_container {
+    background-color:#efefef;
+    color: rgba(0,0,0,.5);;
+}
+.candlecare_img {
+    margin:1% 0% 0% 33%; 
+    padding-top: 2%;
+    width:auto;
+}
+.candlecare_text {
+    margin:3% 20% 0% 20%; 
+    padding-top: 2%;
+    width:auto;
+    /* font-size: 1px; */
+    text-align: center;
+}
+.candlecare_container h3{
+    padding-top: 3%;
+    font-style: normal;
+    text-align: center;
+}
+.customcandle_container {
+    background-color:#efefef;
+    padding-bottom: 3%;
+}
+.customcandle_img {
+    margin:1% 0% 0% 33%; 
+    padding-top: 2%;
+    width:auto;
+}
+.customcandle_text {
+    margin:3% 20% 0% 20%; 
+    padding-top: 2%;
+    width:auto;   
+}
+.customcandle_container h3{
+    padding-top: 3%;
+    font-style: normal;
+    text-align: center;
+}

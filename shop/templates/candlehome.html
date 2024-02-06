@@ -1,96 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Candle Sanctuary</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <script src="{% static 'jsmain.js' %}"></script>
+{% extends "base.html" %}
 
-</head>
-<body>
-    
-<!-- Sticky Announcement Bar -->
-<div class="announcement-bar">
-    <div class="container">
-      <p class="mb-0">Special Announcement: Enjoy free shipping on orders over Rs.5000!</p>
-    </div>
-  </div>
-
-  <!-- Heading Section -->
-  <div class="sticky-wrapper">
-  
-  <div class="container mt-4">
-    <a class="nodecoration" href="/">
-    <h1 font-size="4rem" class="text-center fw-bold">THE CANDLE SANCTUARY</h1>
-    </a>
-  </div>
-
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-          
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Shop By Collection
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/shopAll">Candles</a>
-              <a class="dropdown-item" href="#">Body Oils</a>
-              <a class="dropdown-item" href="#">Reed Diffusers</a>
-              <a class="dropdown-item" href="#">Candle Accessories</a>
-              <a class="dropdown-item" href="#">Gift Sets</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Shop By Scent
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Citrus and Fruit</a>
-              <a class="dropdown-item" href="#">Green and Earth</a>
-              <a class="dropdown-item" href="#">Floral and Sweet</a>
-              <a class="dropdown-item" href="#">Wood and Spice</a>
-              <a class="dropdown-item" href="#">Southern Wild</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Custom Candles</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Candle Care</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sale</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Help
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">About Us</a>
-              <a class="dropdown-item" href="#">Register</a>
-              <a class="dropdown-item" href="#">Contact Us</a>
-            </div>
-          </li>
-        </ul>
-      </div>      
-    </div>
-  </nav>
-
-  </div>
+{% block content %}
 
    <!-- Jumbotron Section -->
    <div class="jumbotron">
@@ -98,7 +8,7 @@
     <div class="container jumbotron-content">
       <h3 class="display-5">The Candle Sanctuary - Premium Candles</h3>
       <p class="lead">Discover a variety of scented candles and create a cozy atmosphere in your home.</p>
-      <a class="btn btn-lg mt-4" href="/shopAll" role="button">Shop Now</a>
+      <a class="btn btn-lg mt-4" href="{% url 'shop_all' %}" role="button">Shop Now</a>
     </div>
   </div>
 
@@ -109,105 +19,42 @@
   </div>
   
 
+
+  <div class="container">
+    <h4 class="text-center">A FEW OF OUR FAVOURITE THINGS</h4>
+  </div>
   
   <!-- Image Grid with Descriptions, Prices, and Hover Zoom Effect -->
-  <div class="container mt-5 pt-5">
+  <div class="container pt-5">
   <div class="row">
+    {% for product in featured_products %}
+    
     <div class="col-md-4 mb-4">
       <div class="card">
         <a href="#">
         <div class="zoom-effect">
-          <img src="images/insta2.jpg" class="card-img-top" alt="Product 1">
+          <img src="{{ product.image1.url }}" class="card-img-top" alt="Product 1">
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Scented Candles</h5>
-          <p class="card-text">An exquisitive collection of strong aromas</p>
+        <div class="card-body text-center">
+          <h6 class="card-title">{{ product.name }}</h6>
+          <p class="card-text">${{ product.price }}</p>
         </div>
         </a>
       </div>
     </div>
-    <!-- Repeat the card structure for other products -->
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <a href="#">
-        <div class="zoom-effect">
-          <img src="pics/reed_diffusers.jpg" class="card-img-top" alt="Product 2">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Reed Diffusers</h5>
-          <p class="card-text">Unparalleled scent coverage</p>
-        </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Repeat the card structure for other products -->
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <a href="#">
-        <div class="zoom-effect">
-          <img src="pics/image7.webp" class="card-img-top" alt="Product 2">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Gift Sets</h5>
-          <p class="card-text">Choose from a variety of gift sets</p>
-        </div>
-        </a>
-    </div>
-    </div>  
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <a href="#">
-        <div class="zoom-effect">
-          <img src="pics/accessories.webp" class="card-img-top" alt="Product 1">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Candle Accessories</h5>
-          <p class="card-text">Wick trimmers, snuffers and tote bags</p>
-        </div>
-        </a>
-      </div>
-    </div>
-    <!-- Repeat the card structure for other products -->
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <a href="#">
-        <div class="zoom-effect">
-          <img src="pics/body_oil.webp" class="card-img-top" alt="Product 2">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Body Oils</h5>
-          <p class="card-text">Perfect for a soothing massage</p>
-        </div>
-        </a>
-      </div>
-    </div>
-    <!-- Repeat the card structure for other products -->
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <a href="#">
-        <div class="zoom-effect">
-          <img src="pics/custom_candles.jpg" class="card-img-top" alt="Product 2">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Custom Candles</h5>
-          <p class="card-text">Customized candles for any occassion</p>
-        </div>
-        </a>
-      </div>
-    </div>
+    {% endfor %}
   </div>
   </div>
 
   
    <!-- Text Section -->   
    <div class="container-fluid mt-5 p-5 pink">
-    <p class="text-center">The Candle Sanctuary is an online marketplace where you can find the best selection of scented candles sourced from around the globe. We have handpicked each and every brand on our site – we appreciate quality products produced by artisans; and we know that you do, too. We are your go-to, one-stop shop – whether you’re looking for the perfect gift or just looking to treat yourself.</p>
-    <p class="text-center">Quite simply, we love candles. A candle is special. No matter how advanced our world becomes, nothing will replace it. The feeling of calm and comfort that comes with lighting a wick and letting the aroma unfold around you; becoming entranced by the flicker of the flame – that can never be replicated.</p>
+    <p class="text-center">Reviews will go here.</p>
+    <p class="text-center">.....</p>
   </div>
   
   <div class="container mt-5">
-    <h4 class="text-center">Follow us on instagram</h4>
+    <h4 class="text-center">Follow us on instagram @mycandlesanctuary</h4>
   </div>
   
   <div class="container">
@@ -231,53 +78,4 @@
   </div>
 
   <hr>
-
-<!-- Base Footer -->
-<footer class="footer">
-  <div class="container mx-auto mb-5">
-    <div class="footer-columns">
-      <!-- Column 1 -->
-      <div class="footer-column">
-        <h4 class="footer-heading">DISCOVER</h4>
-        <p class="footer-subheading">Our Story</p>
-        <p class="footer-subheading">What's Your Scent</p>
-        <p class="footer-subheading">Our Loyalty Program</p>
-        <p class="footer-subheading">Login</p>
-      </div>
-
-      <!-- Column 2 -->
-      <div class="footer-column">
-        <h4 class="footer-heading">QUICK LINKS</h4>
-        <p class="footer-subheading">Contact Us</p>
-        <p class="footer-subheading">FAQ's</p>
-        <p class="footer-subheading">Shipping and Returns</p>
-        <p class="footer-subheading">Privacy Policy</p>
-      </div>
-
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <h4 class="footer-heading">STAY CONNECTED</h4>
-        <div class="social-icons">
-          <a href="#" class="social-icon" title="Twitter">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="social-icon" title="Facebook">
-            <i class="fab fa-facebook"></i>
-          </a>
-          <a href="#" class="social-icon" title="Instagram">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- Bootstrap JavaScript and dependencies -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/248990fb55.js" crossorigin="anonymous"></script>
-
-</body>
-</html>
+  {% endblock %}

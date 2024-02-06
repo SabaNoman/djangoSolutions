@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Contact Form Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Get in Touch</h2>
+    <form id="contactForm" action="{% url 'contact' %}" method="post" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <!-- Your form fields go here -->
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Your Name</label>
+            <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Your Full Name">
+            <span id="nameError" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Your Email address</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+            <span id="emailError" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Your Phone</label>
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone Number">
+            <span id="phoneError" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" name="message" id="message" rows="4" placeholder="Type your message here"></textarea>
+            <span id="messageError" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary text-black">Submit</button>
+    </form>
+</div>
+<hr>
+{% endblock %}

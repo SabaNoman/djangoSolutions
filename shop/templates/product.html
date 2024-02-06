@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    
+    <div class="card mb-3">
+        <div class="col-md-12">
+          <div class="card-body">
+            <h3 class="card-title">{{ product.name }}</h3>
+            <p class="card-text">{{ product.ingredients }}</p>
+            <p class="card-text">${{ product.price }}</p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-md-12">
+              <div class="image-container">
+                <img src="{{ product.image1.url }}" class="card-img" alt="image" style="max-width: 20%; height: auto;">
+                <img src="{{ product.image2.url }}" class="card-img" alt="image2" style="max-width: 20%; height: auto;">
+                {% if product.image3.url != 'null' %}
+                <img src="{{ product.image3.url }}" class="card-img" alt="image3" style="max-width: 20%; height: auto;">
+                {% endif %}
+              </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card-body">
+            <p class="card-text">{{ product.description }}</p>
+          </div>
+        </div>
+          <button class="text-black btn btn-primary" onclick="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+  
+{% endblock %}
