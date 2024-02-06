@@ -4,7 +4,6 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 import datetime
 
-
 class Category(models.Model):
   name = models.CharField(max_length=50)
 
@@ -35,11 +34,6 @@ class Product(models.Model):
 
   def __str__(self):
     return self.name
-
-@receiver(pre_save, sender=Product)
-def product_pre_save(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.name)
 
 class OrderDetails(models.Model):
   product = models.ForeignKey(Product, on_delete=models.CASCADE)
