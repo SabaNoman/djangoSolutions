@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .models import Product
 from django.core.mail import send_mail
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from .models import Product
 
 def homepage(request):
     featured_products = Product.objects.filter(is_featured=True)
@@ -39,5 +42,19 @@ def customcandles(request):
 def candlecare(request):
     product = Product.objects.all()
     return render(request, 'candlecare.html', {'product':product})
+
+def shop_all(request):
+    all_products = Product.objects.all()
+    paginator = Paginator(all_products, 8)  # 8 products per page
+    page = request.GET.get('page')
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products = paginator.page(paginator.num_pages)
+    return render(request, 'shopAll.html', {'products': products})
 
 #comment
