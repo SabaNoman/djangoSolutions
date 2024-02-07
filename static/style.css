@@ -115,6 +115,10 @@ a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: black;
 }
+.filter-options {
+    list-style: none;
+    padding-left: 0;
+}
 .footer {
     background-color: #f8f9fa;
     padding: 30px 0;
@@ -170,7 +174,6 @@ p .small{
     font-weight: bolder;
     color: black;
 }
-
 .customcandle_container {
     background-color:#efefef;
     color: rgba(0,0,0,.5);;
@@ -210,4 +213,7 @@ p .small{
     padding-top: 3%;
     font-style: normal;
     text-align: center;
+}
+.current-page {
+    font-weight: bold;
 }

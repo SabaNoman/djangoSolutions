@@ -14,8 +14,8 @@
 
   <!-- Text Section -->
   <div class="container mt-5 p-5">
-    <p class="text-center">The Candle Sanctuary is an online marketplace where you can find the best selection of scented candles sourced from around the globe. We have handpicked each and every brand on our site – we appreciate quality products produced by artisans; and we know that you do, too. We are your go-to, one-stop shop – whether you’re looking for the perfect gift or just looking to treat yourself.</p>
-    <p class="text-center">Quite simply, we love candles. A candle is special. No matter how advanced our world becomes, nothing will replace it. The feeling of calm and comfort that comes with lighting a wick and letting the aroma unfold around you; becoming entranced by the flicker of the flame – that can never be replicated.</p>
+    <p class="text-center small">The Candle Sanctuary is an online marketplace where you can find the best selection of scented candles sourced from around the globe. We have handpicked each and every brand on our site – we appreciate quality products produced by artisans; and we know that you do, too. We are your go-to, one-stop shop – whether you’re looking for the perfect gift or just looking to treat yourself.</p>
+    <p class="text-center small">Quite simply, we love candles. A candle is special. No matter how advanced our world becomes, nothing will replace it. The feeling of calm and comfort that comes with lighting a wick and letting the aroma unfold around you; becoming entranced by the flicker of the flame – that can never be replicated.</p>
   </div>
   
 
@@ -27,11 +27,10 @@
   <!-- Image Grid with Descriptions, Prices, and Hover Zoom Effect -->
   <div class="container pt-5">
   <div class="row">
-    {% for product in featured_products %}
-    
+    {% for product in featured_products %}    
     <div class="col-md-4 mb-4">
       <div class="card">
-        <a href="#">
+        <a href="{% url 'product' product.slug %}">
         <div class="zoom-effect">
           <img src="{{ product.image1.url }}" class="card-img-top" alt="Product 1">
         </div>
@@ -46,13 +45,27 @@
   </div>
   </div>
 
+ <!-- Text Section -->   
+ <div class="container-fluid mt-5 p-5 pink">
+ 
   
-   <!-- Text Section -->   
-   <div class="container-fluid mt-5 p-5 pink">
-    <p class="text-center">Reviews will go here.</p>
-    <p class="text-center">.....</p>
+  <div id="reviewCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+   
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      {% for review in reviews %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">          
+          <h6 class="text-center">{{ review.content }}</h6>
+          <h6 class="text-center">{{ review.user_name }}</h6>
+        </div>
+      {% endfor %}
+    </div>
+  
   </div>
-  
+
+</div>
+
   <div class="container mt-5">
     <h4 class="text-center">Follow us on instagram @mycandlesanctuary</h4>
   </div>

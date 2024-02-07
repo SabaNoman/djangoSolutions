@@ -30,6 +30,28 @@
         </div>
           <button class="text-black btn btn-primary" onclick="addToCart()">Add to Cart</button>
     </div>
+    <!-- *YAAAAH S Kaam -->
+    <div class="container">
+      <form action="{% url 'submit_review' pk=product.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+          <label for="username">Your Name:</label>
+          <input type="text" class="form-control" id="username" name="username" style="width: 30%;">
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating (from 1 to 5):</label>
+          <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" style="width: 30%;">
+        </div>
+        <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea class="form-control" id="comment" name="comment" rows="3" style="width: 30%;"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
   
 {% endblock %}
