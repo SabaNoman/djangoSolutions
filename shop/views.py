@@ -76,10 +76,12 @@ def contact(request):
     return render(request, 'contact.html')
 
 def customcandles(request):
+
     return render(request, 'customcandles.html')
 
 def candlecare(request):
-    return render(request, 'candlecare.html')
+    product = Product.objects.all()
+    return render(request, 'candlecare.html', {'product':product})
 
 def submit_review(request, pk):
     product = Product.objects.get(pk=pk)

@@ -15,6 +15,11 @@ class Category(models.Model):
   def __str__(self):
     return self.name
 
+class Category(models.Model):
+  name = models.CharField(max_length=50, default='', blank='True')
+  def __str__(self):
+    return f'{self.firstname} + {self.lastname}'
+
 class Product(models.Model):
   slug = models.SlugField(max_length=255, blank=True)
   name = models.CharField(max_length=255, unique=True)
@@ -27,22 +32,9 @@ class Product(models.Model):
   category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
   brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=None)
   is_featured = models.BooleanField(default=False)
+
   def __str__(self):
     return self.name
-
-@receiver(pre_save, sender=Product)
-def product_pre_save(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.name)
-
-class Customer(models.Model):
-  firstname = models.CharField(max_length=255)
-  lastname = models.CharField(max_length=255)
-  phone = models.CharField(max_length=10)
-  email = models.EmailField(max_length=100)
-  password = models.CharField(max_length=12)
-  def __str__(self):
-    return f'{self.firstname} + {self.lastname}'
 
 class OrderDetails(models.Model):
   product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -52,6 +44,7 @@ class OrderDetails(models.Model):
   phone = models.CharField(max_length=20, default='', blank='True')
   date = datetime.datetime.today
   status = models.BooleanField(default=False)
+
   def __str__(self):
     return self.product
 
