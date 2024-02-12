@@ -3,7 +3,7 @@ from .models import Product, Category, Brand, Review
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import Product, Review
 from .form import ReviewForm
 
@@ -13,7 +13,7 @@ def homepage(request):
     return render(request, 'candlehome.html', {'featured_products': featured_products, 'reviews': reviews})
 
 def shop_all(request):
-    all_products = Product.objects.all()
+    all_products = Product.objects.all().order_by('id')
     paginator = Paginator(all_products, 8)  # Eight products per page
     page = request.GET.get('page')
     try:
@@ -30,7 +30,7 @@ def shop_all(request):
 def shop_category(request, strtext):
     strtext = strtext.replace('-', ' ')
     category = Category.objects.get(name=strtext)
-    all_products = Product.objects.filter(category=category)
+    all_products = Product.objects.filter(category=category).order_by('id')
     paginator = Paginator(all_products, 8)
     page = request.GET.get('page')
     try:
@@ -44,7 +44,7 @@ def shop_category(request, strtext):
 def shop_brand(request, strtext):
     strtext = strtext.replace('-', ' ')
     brand = Brand.objects.get(name=strtext)
-    all_products = Product.objects.filter(brand=brand)
+    all_products = Product.objects.filter(brand=brand).order_by('id')
     paginator = Paginator(all_products, 8)
     page = request.GET.get('page')
     try:

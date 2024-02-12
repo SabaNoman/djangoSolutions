@@ -1,9 +1,4 @@
 from django.db import models
-# from django.utils.text import slugify
-# from django.db.models.signals import pre_save
-# from django.dispatch import receiver
-# import datetime
-
 
 class Brand(models.Model):
   name = models.CharField(max_length=50, default='', blank='True')
@@ -29,8 +24,6 @@ class Product(models.Model):
   is_featured = models.BooleanField(default=False)
   def __str__(self):
     return self.name
-
-# date = models.DateTimeField(auto_now_add=True)
 
 class Review(models.Model):
     username = models.CharField(max_length=100)
