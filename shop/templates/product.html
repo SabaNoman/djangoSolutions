@@ -30,28 +30,101 @@
         </div>
           <button class="text-black btn btn-primary" onclick="addToCart()">Add to Cart</button>
     </div>
-    <!-- *YAAAAH S Kaam -->
+    <!-- Form Template -->
     <div class="container">
-      <form action="{% url 'submit_review' pk=product.pk %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="form-group">
-          <label for="username">Your Name:</label>
-          <input type="text" class="form-control" id="username" name="username" style="width: 30%;">
+      <div class="row">
+        <div class="col-md-5 pt-5">
+          <form action="{% url 'submit_review' pk=product.pk %}" method="post">
+            {% csrf_token %}
+          
+            <div class="form-group">
+              <label for="username">Your Name:</label>
+              <input type="text" class="form-control" id="username" name="username" style="width: 100%;">
+            </div>
+            <div class="form-group">
+              <label for="rating">Rating:</label>
+              <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" style="width: 100%;">
+            </div>
+            <div class="form-group">
+              <label for="userreview">Comment:</label>
+              <textarea class="form-control" id="userreview" name="userreview" rows="3" style="width: 100%;"></textarea>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary text-black">Submit</button>
+            </div>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="rating">Rating (from 1 to 5):</label>
-          <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" style="width: 30%;">
+
+        <div class="col-md-7 pt-5 text-right">
+          <h5>Specifications</h5>
+          <hr>
+          <h6>10.6oz/300g</h6>
+          <h6>55 Hours Burn Time</h6>
+          <h6>Hand-poured in Australia</h6>
+          <h6>100% Eco Soy Wax</h6>
+          <h6>10cm x 9.5cm appro</h6>
+          <br>
+          <h6>Every candle is hand-poured in small batches using 100% eco soy wax.</h6>
+          <h6>The ceramic pots are designed to be reused, and feature a silicon seal on the lid.</h6>
+          <h6>Please reuse your vessel and send us pictures! We love to see how creative you are.</h6>
         </div>
-        <div class="form-group">
-          <label for="comment">Comment:</label>
-          <textarea class="form-control" id="comment" name="comment" rows="3" style="width: 30%;"></textarea>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </form>
+
+      </div>
     </div>
-  </div>
   
+
+  <!-- Display existing reviews, if any -->
+  {% if reviews != null %}
+    <div class="container mt-5 p-5 pink"> 
+    <h6>Customer Reviews: ({{ reviews|length }}) </h6>
+    <br>
+    <hr>
+    {% for review in reviews %}
+     
+      <br>
+      <div class="rating">
+        {% if review.rating == 1 %}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {% elif review.rating == 2 %}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {% elif review.rating == 3 %}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {% elif review.rating == 4 %}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        {% elif review.rating == 5 %}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        {% endif %}
+      </div>
+      {{ review.userreview }}
+      <br>
+      {{ review.username }}
+      <br>
+      <hr>
+    {% endfor %}
+    </div>
+  {% endif %}
+
+  </div>
+  <br>
+  <hr>
 {% endblock %}

@@ -1,8 +1,8 @@
 from django.db import models
-from django.utils.text import slugify
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
-import datetime
+# from django.utils.text import slugify
+# from django.db.models.signals import pre_save
+# from django.dispatch import receiver
+# import datetime
 
 
 class Brand(models.Model):
@@ -14,11 +14,6 @@ class Category(models.Model):
   name = models.CharField(max_length=50, default='', blank='True')
   def __str__(self):
     return self.name
-
-class Category(models.Model):
-  name = models.CharField(max_length=50, default='', blank='True')
-  def __str__(self):
-    return f'{self.firstname} + {self.lastname}'
 
 class Product(models.Model):
   slug = models.SlugField(max_length=255, blank=True)
@@ -32,26 +27,15 @@ class Product(models.Model):
   category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
   brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=None)
   is_featured = models.BooleanField(default=False)
-
   def __str__(self):
     return self.name
 
-class OrderDetails(models.Model):
-  product = models.ForeignKey(Product, on_delete=models.CASCADE)
-  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-  quantity = models.IntegerField(default=1)
-  address = models.CharField(max_length=100, default='', blank=False)
-  phone = models.CharField(max_length=20, default='', blank='True')
-  date = datetime.datetime.today
-  status = models.BooleanField(default=False)
-
-  def __str__(self):
-    return self.product
+# date = models.DateTimeField(auto_now_add=True)
 
 class Review(models.Model):
-    user_name = models.CharField(max_length=255)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    username = models.CharField(max_length=100)
+    rating = models.IntegerField(default=5, blank=True, null=True)
+    userreview = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)    
     def __str__(self):
-        return f'{self.user_name} - {self.content}'
+        return f'{self.username} - {self.userreview}'

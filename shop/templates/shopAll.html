@@ -53,22 +53,23 @@
           </div>   
 
       <!-- Pagination Links -->
-      <div class="row">
+      {% if products.paginator.num_pages > 1 %}
+      <div class="row">       
         <div class="col">
             {% if products.has_previous %}
-
             <a href="?page={{ products.previous_page_number }}">Previous</a>
             {% endif %}
         </div>
         <div class="col text-center">
-            {% for num in products.paginator.page_range %}
+            {% for num in products.paginator.page_range %}          
+            &nbsp;&nbsp;
                 {% if products.number == num %}
-                    <span class="underlined current-page">{{ num }}</span>                    
+                    <span class="fw-bold">{{ num }}</span>                    
                 {% else %}
-                    <a href="?page={{ num }}"> {{ num }} </a>                    
+                    <a href="?page={{ num }}">{{ num }}</a>                    
                 {% endif %}
-            {% endfor %}
-            
+            &nbsp;&nbsp;
+            {% endfor %}            
         </div>
         <div class="col text-right">
             {% if products.has_next %}
@@ -77,6 +78,20 @@
         </div>
       </div>
 
+      <!-- Indicators -->
+      <div class="row">
+        <div class="col text-center">
+          {% for num in products.paginator.page_range %}            
+          
+              {% if products.number == num %}
+                  <span><hr class="longer-dash"></span>
+              {% else %}
+                  <span><hr class="longer-dash"></span>
+              {% endif %}
+          {% endfor %}            
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 

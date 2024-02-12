@@ -214,6 +214,22 @@ p .small{
     font-style: normal;
     text-align: center;
 }
-.current-page {
-    font-weight: bold;
+.customfont {
+    font-weight: 400;
 }
+.longer-dash {
+    margin: 1px;
+    display:inline-block;
+    border-top: 4px solid black;
+    width: 32px;
+}
+.star {
+    font-size: 5px;
+    color: #b32b2b;
+    cursor: pointer;
+  }
+  
+.checked {
+    color: orange;
+  }
+  

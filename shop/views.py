@@ -4,12 +4,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
-from .models import Product
+from .models import Product, Review
 from .form import ReviewForm
 
 def homepage(request):
     featured_products = Product.objects.filter(is_featured=True)
-    reviews = Review.objects.all().order_by('-created_at')[:5]  # Fetch five latest reviews
+    reviews = Review.objects.all()[:5]  # Fetch the first five reviews
     return render(request, 'candlehome.html', {'featured_products': featured_products, 'reviews': reviews})
 
 def shop_all(request):
@@ -57,7 +57,8 @@ def shop_brand(request, strtext):
 
 def product(request, slug):
     product = Product.objects.get(slug=slug)
-    return render(request, 'product.html', {'product':product})
+    reviews = Review.objects.filter(product=product)
+    return render(request, 'product.html', {'product':product, 'reviews':reviews})
 
 def contact(request):
     if request.method == 'POST':
@@ -76,11 +77,9 @@ def contact(request):
     return render(request, 'contact.html')
 
 def customcandles(request):
-
     return render(request, 'customcandles.html')
 
 def candlecare(request):
-    product = Product.objects.all()
     return render(request, 'candlecare.html', {'product':product})
 
 def submit_review(request, pk):
@@ -88,9 +87,12 @@ def submit_review(request, pk):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            form.instance.product = product
-            form.save()
-            return redirect('product_detail', pk=pk)
+            username = form.cleaned_data['username']
+            rating = form.cleaned_data['rating']
+            review = form.cleaned_data['userreview']
+            productreview = Review(username=username, rating=rating, userreview=review, product=product)
+            productreview.save()
+            return render(request, 'success.html')
     else:
         form = ReviewForm()
-    return render(request, 'submit_review.html', {'form': form, 'product': product})
+    return render(request, 'product.html', {'product': product})
